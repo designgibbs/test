@@ -46,6 +46,30 @@
         const loader = new GLTFLoader();
         loader.load('https://designgibbs.github.io/test/new_cube_2.gltf', function (gltf) {
             model = gltf.scene;
+            
+            // Create a set to store unique materials
+            const materials = new Set();
+            const materialNames = new Set();
+
+            // Traverse through the model to find materials
+            model.traverse((node) => {
+                if (node.isMesh && node.material) {
+                    if (Array.isArray(node.material)) {
+                        node.material.forEach(mat => {
+                            materials.add(mat);
+                            materialNames.add(mat.name || 'Unnamed Material');
+                        });
+                    } else {
+                        materials.add(node.material);
+                        materialNames.add(node.material.name || 'Unnamed Material');
+                    }
+                }
+            });
+
+            // Log number and names of unique materials
+            console.log('Number of unique materials:', materials.size);
+            console.log('Names of materials:', [...materialNames]);
+
             model.traverse((node) => {
                 if (node.isMesh) {
                     node.castShadow = true;
