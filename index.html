@@ -48,10 +48,12 @@
                 if (node.isMesh) {
                     node.castShadow = true;
                     node.receiveShadow = true;
-                    // Store original material color
-                    if (node.name === 'face') {
-                        node.userData.originalColor = node.material.color.getHex();
-                    }
+                    // Store original material colors
+                    node.material.forEach((material) => {
+                        if (material.name === 'face') {
+                            material.userData.originalColor = material.color.getHex();
+                        }
+                    });
                 }
             });
             scene.add(model);
@@ -101,18 +103,27 @@
                 raycaster.setFromCamera(mouse, camera);
 
                 const intersects = raycaster.intersectObject(model, true);
+                console.log('Intersects:', intersects); // Log intersections
 
                 // Reset all 'face' materials to original color
                 model.traverse((node) => {
-                    if (node.isMesh && node.name === 'face') {
-                        node.material.color.setHex(node.userData.originalColor);
+                    if (node.isMesh) {
+                        node.material.forEach((material) => {
+                            if (material.name === 'face') {
+                                material.color.setHex(material.userData.originalColor || 0xffffff); // Default to white if undefined
+                            }
+                        });
                     }
                 });
 
                 // Highlight intersected 'face' material
                 intersects.forEach(intersect => {
-                    if (intersect.object.isMesh && intersect.object.name === 'face') {
-                        intersect.object.material.color.set(0xff0000); // Bright red
+                    if (intersect.object.isMesh) {
+                        intersect.object.material.forEach((material) => {
+                            if (material.name === 'face') {
+                                material.color.set(0xff0000); // Bright red
+                            }
+                        });
                     }
                 });
             }
