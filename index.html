@@ -7,6 +7,7 @@
     <style>
         body { margin: 0; }
         canvas { display: block; }
+        cursor: grab;
     </style>
 </head>
 <body>
@@ -35,17 +36,50 @@
         scene.add(light);
 
         // Load GLTF Model from Full URL
+        let model;
         const loader = new GLTFLoader();
         loader.load('https://designgibbs.github.io/test/poundgltf.gltf', function (gltf) {
-            scene.add(gltf.scene);
-            gltf.scene.position.set(0, 0, 0);
-            gltf.scene.rotation.y = Math.PI / 4;
+            model = gltf.scene;
+            scene.add(model);
+            model.position.set(0, 0, 0);
+            model.rotation.y = Math.PI / 4;
         }, undefined, function (error) {
             console.error('An error occurred while loading the GLTF model:', error);
         });
 
         // Camera position
         camera.position.z = 5;
+
+        // Mouse controls for rotation
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+
+        document.addEventListener('mousedown', function(event) {
+            isDragging = true;
+            document.body.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', function(event) {
+            if (isDragging && model) {
+                const deltaMove = {
+                    x: event.clientX - previousMousePosition.x,
+                    y: event.clientY - previousMousePosition.y
+                };
+
+                model.rotation.y += deltaMove.x * 0.005;
+                model.rotation.x += deltaMove.y * 0.005;
+            }
+
+            previousMousePosition = {
+                x: event.clientX,
+                y: event.clientY
+            };
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            document.body.style.cursor = 'grab';
+        });
 
         // Animation loop
         function animate() {
