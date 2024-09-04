@@ -32,6 +32,13 @@
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.appendChild(renderer.domElement);
 
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5); // Soft white light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // Directional light
+        directionalLight.position.set(1, 1, 1).normalize();
+        scene.add(ambientLight);
+        scene.add(directionalLight);
+
         // Load GLTF Model
         let model;
         const loader = new GLTFLoader();
@@ -41,9 +48,18 @@
                 if (node.isMesh) {
                     node.castShadow = true;
                     node.receiveShadow = true;
-                    // Store original material color
-                    if (node.name === 'face') {
-                        node.userData.originalColor = node.material.color.getHex();
+                    // Store original material colors
+                    if (Array.isArray(node.material)) {
+                        node.material.forEach(material => {
+                            if (material.name === 'face') {
+                                material.userData.originalColor = material.color.getHex();
+                            }
+                        });
+                    } else {
+                        const material = node.material;
+                        if (material.name === 'face') {
+                            material.userData.originalColor = material.color.getHex();
+                        }
                     }
                 }
             });
@@ -86,7 +102,7 @@
             if (model) {
                 const mouse = new THREE.Vector2();
                 const raycaster = new THREE.Raycaster();
-                
+
                 // Normalize mouse coordinates to [-1, 1]
                 mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
                 mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -94,13 +110,40 @@
                 raycaster.setFromCamera(mouse, camera);
 
                 const intersects = raycaster.intersectObject(model, true);
+                console.log('Intersects:', intersects); // Log intersections
 
+                // Reset all 'face' materials to original color
                 model.traverse((node) => {
-                    if (node.isMesh && node.name === 'face') {
-                        if (intersects.some(intersect => intersect.object === node)) {
-                            node.material.color.set(0xff0000); // Bright red
+                    if (node.isMesh) {
+                        if (Array.isArray(node.material)) {
+                            node.material.forEach((material) => {
+                                if (material.name === 'face') {
+                                    material.color.setHex(material.userData.originalColor || 0xffffff); // Default to white if undefined
+                                }
+                            });
                         } else {
-                            node.material.color.setHex(node.userData.originalColor); // Revert to original color
+                            const material = node.material;
+                            if (material.name === 'face') {
+                                material.color.setHex(material.userData.originalColor || 0xffffff); // Default to white if undefined
+                            }
+                        }
+                    }
+                });
+
+                // Highlight intersected 'face' material
+                intersects.forEach(intersect => {
+                    if (intersect.object.isMesh) {
+                        if (Array.isArray(intersect.object.material)) {
+                            intersect.object.material.forEach((material) => {
+                                if (material.name === 'face') {
+                                    material.color.set(0xff0000); // Bright red
+                                }
+                            });
+                        } else {
+                            const material = intersect.object.material;
+                            if (material.name === 'face') {
+                                material.color.set(0xff0000); // Bright red
+                            }
                         }
                     }
                 });
@@ -120,30 +163,6 @@
 
             // Optional: Clamp the zoom range
             camera.position.z = Math.max(1, Math.min(100, camera.position.z));
-        });
-
-        // Mouse click to navigate
-        document.addEventListener('click', function(event) {
-            if (model) {
-                const mouse = new THREE.Vector2();
-                const raycaster = new THREE.Raycaster();
-                
-                // Normalize mouse coordinates to [-1, 1]
-                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-                raycaster.setFromCamera(mouse, camera);
-
-                const intersects = raycaster.intersectObject(model, true);
-
-                // Check if any intersected object has the red material
-                intersects.forEach(intersect => {
-                    const object = intersect.object;
-                    if (object.isMesh && object.name === 'face') {
-                        window.location.href = 'http://www.toddgibbs.com/art-direction';
-                    }
-                });
-            }
         });
 
         // Animation loop
