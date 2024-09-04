@@ -34,14 +34,14 @@
         light.position.set(1, 1, 1).normalize();
         scene.add(light);
 
-        // Load GLTF Model
+        // Load GLTF Model from Full URL
         const loader = new GLTFLoader();
-        loader.load('./poundgltf.gltf', function (gltf) {
+        loader.load('https://designgibbs.github.io/test/poundgltf.gltf', function (gltf) {
             scene.add(gltf.scene);
             gltf.scene.position.set(0, 0, 0);
             gltf.scene.rotation.y = Math.PI / 4;
         }, undefined, function (error) {
-            console.error(error);
+            console.error('An error occurred while loading the GLTF model:', error);
         });
 
         // Camera position
