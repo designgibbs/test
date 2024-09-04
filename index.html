@@ -46,7 +46,7 @@
         const loader = new GLTFLoader();
         loader.load('https://designgibbs.github.io/test/new_cube_2.gltf', function (gltf) {
             model = gltf.scene;
-            
+
             // Traverse to set up materials and store original colors
             model.traverse((node) => {
                 if (node.isMesh) {
@@ -115,12 +115,16 @@
 
                 const intersects = raycaster.intersectObject(model, true);
 
+                // Log intersected objects
+                console.log('Intersects:', intersects);
+
                 model.traverse((node) => {
                     if (node.isMesh) {
                         if (Array.isArray(node.material)) {
                             node.material.forEach(mat => {
                                 if (node.name === 'face') {
                                     if (intersects.some(intersect => intersect.object === node)) {
+                                        console.log('Hovering over face material');
                                         mat.color.set(0xff0000); // Bright red
                                     } else {
                                         mat.color.setHex(mat.userData.originalColor); // Revert to original color
@@ -130,6 +134,7 @@
                         } else {
                             if (node.name === 'face') {
                                 if (intersects.some(intersect => intersect.object === node)) {
+                                    console.log('Hovering over face material');
                                     node.material.color.set(0xff0000); // Bright red
                                 } else {
                                     node.material.color.setHex(node.material.userData.originalColor); // Revert to original color
