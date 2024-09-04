@@ -3,65 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js Viewer</title>
+    <title>Three.js GLTF Viewer</title>
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; }
-        .container { position: relative; height: 100vh; overflow: hidden; }
-        h1 { 
-            position: absolute; 
-            top: 20px; 
-            left: 20px; 
-            color: #fff; 
-            background: rgba(0, 0, 0, 0.6); 
-            padding: 10px; 
-            border-radius: 5px;
-            z-index: 1; /* Ensure the title is above the canvas */
-        }
-        canvas { 
-            display: block; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-        }
+        body { margin: 0; }
+        canvas { display: block; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hi there</h1>
-        <canvas id="threeCanvas"></canvas>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.js"></script>
-    <script>
-        // Set up the scene
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.module.min.js",
+                "GLTFLoader": "https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/loaders/GLTFLoader.js"
+            }
+        }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'GLTFLoader';
+
+        // Scene, Camera, Renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('threeCanvas') });
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-        // Add ambient light
-        const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
-        scene.add(ambientLight);
+        // Lighting
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(1, 1, 1).normalize();
+        scene.add(light);
 
-        // Add a directional light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(1, 1, 1).normalize();
-        scene.add(directionalLight);
-
-        // Load the GLTF model
-        const loader = new THREE.GLTFLoader();
-        loader.load('https://designgibbs.github.io/test/poundgltf.gltf', (gltf) => {
+        // Load GLTF Model
+        const loader = new GLTFLoader();
+        loader.load('./poundgltf.gltf', function (gltf) {
             scene.add(gltf.scene);
             gltf.scene.position.set(0, 0, 0);
-            gltf.scene.scale.set(1, 1, 1);
-            animate();
-        }, undefined, (error) => {
+            gltf.scene.rotation.y = Math.PI / 4;
+        }, undefined, function (error) {
             console.error(error);
         });
 
-        // Adjust the camera position
+        // Camera position
         camera.position.z = 5;
 
         // Animation loop
@@ -69,15 +52,14 @@
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
         }
+        animate();
 
-        // Resize listener
+        // Handle window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-
-        animate();
     </script>
 </body>
 </html>
