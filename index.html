@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js GLTF Viewer</title>
+    <title>Three.js GLTF Viewer with Enhanced Lighting</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
-        cursor: grab;
     </style>
 </head>
 <body>
@@ -28,18 +27,43 @@
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;  // Enable shadows
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;  // Soft shadows
         document.body.appendChild(renderer.domElement);
 
-        // Lighting
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(1, 1, 1).normalize();
-        scene.add(light);
+        // Ambient Light
+        const ambientLight = new THREE.AmbientLight(0x404040, 1);  // Soft white light
+        scene.add(ambientLight);
 
-        // Load GLTF Model from Full URL
+        // Directional Light with Shadows
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5);
+        directionalLight.castShadow = true;  // Enable shadow casting
+        directionalLight.shadow.mapSize.width = 1024;  // Shadow map resolution
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;  // Shadow camera frustum
+        directionalLight.shadow.camera.far = 50;
+        scene.add(directionalLight);
+
+        // SpotLight for added depth
+        const spotLight = new THREE.SpotLight(0xffffff, 0.5);
+        spotLight.position.set(-5, 10, 5);
+        spotLight.castShadow = true;
+        spotLight.shadow.mapSize.width = 1024;
+        spotLight.shadow.mapSize.height = 1024;
+        scene.add(spotLight);
+
+        // Load GLTF Model
         let model;
         const loader = new GLTFLoader();
         loader.load('https://designgibbs.github.io/test/poundgltf.gltf', function (gltf) {
             model = gltf.scene;
+            model.traverse((node) => {
+                if (node.isMesh) {
+                    node.castShadow = true;  // Cast shadows
+                    node.receiveShadow = true;  // Receive shadows
+                }
+            });
             scene.add(model);
             model.position.set(0, 0, 0);
             model.rotation.y = Math.PI / 4;
@@ -49,37 +73,6 @@
 
         // Camera position
         camera.position.z = 5;
-
-        // Mouse controls for rotation
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-
-        document.addEventListener('mousedown', function(event) {
-            isDragging = true;
-            document.body.style.cursor = 'grabbing';
-        });
-
-        document.addEventListener('mousemove', function(event) {
-            if (isDragging && model) {
-                const deltaMove = {
-                    x: event.clientX - previousMousePosition.x,
-                    y: event.clientY - previousMousePosition.y
-                };
-
-                model.rotation.y += deltaMove.x * 0.005;
-                model.rotation.x += deltaMove.y * 0.005;
-            }
-
-            previousMousePosition = {
-                x: event.clientX,
-                y: event.clientY
-            };
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.cursor = 'grab';
-        });
 
         // Animation loop
         function animate() {
