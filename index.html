@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js GLTF Viewer with Lighting from GLTF File and Zoom</title>
+    <title>Three.js GLTF Viewer with Controlled Zoom</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -87,7 +87,7 @@
         // Mouse scroll to zoom
         document.addEventListener('wheel', function(event) {
             event.preventDefault();
-            const zoomAmount = 0.1; // Adjust zoom speed here
+            const zoomAmount = 0.01; // Adjust zoom speed here
             camera.position.z += event.deltaY * zoomAmount;
 
             // Optional: Clamp the zoom range
