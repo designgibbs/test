@@ -49,11 +49,18 @@
                     node.castShadow = true;
                     node.receiveShadow = true;
                     // Store original material colors
-                    node.material.forEach((material) => {
+                    if (Array.isArray(node.material)) {
+                        node.material.forEach(material => {
+                            if (material.name === 'face') {
+                                material.userData.originalColor = material.color.getHex();
+                            }
+                        });
+                    } else {
+                        const material = node.material;
                         if (material.name === 'face') {
                             material.userData.originalColor = material.color.getHex();
                         }
-                    });
+                    }
                 }
             });
             scene.add(model);
@@ -108,22 +115,36 @@
                 // Reset all 'face' materials to original color
                 model.traverse((node) => {
                     if (node.isMesh) {
-                        node.material.forEach((material) => {
+                        if (Array.isArray(node.material)) {
+                            node.material.forEach((material) => {
+                                if (material.name === 'face') {
+                                    material.color.setHex(material.userData.originalColor || 0xffffff); // Default to white if undefined
+                                }
+                            });
+                        } else {
+                            const material = node.material;
                             if (material.name === 'face') {
                                 material.color.setHex(material.userData.originalColor || 0xffffff); // Default to white if undefined
                             }
-                        });
+                        }
                     }
                 });
 
                 // Highlight intersected 'face' material
                 intersects.forEach(intersect => {
                     if (intersect.object.isMesh) {
-                        intersect.object.material.forEach((material) => {
+                        if (Array.isArray(intersect.object.material)) {
+                            intersect.object.material.forEach((material) => {
+                                if (material.name === 'face') {
+                                    material.color.set(0xff0000); // Bright red
+                                }
+                            });
+                        } else {
+                            const material = intersect.object.material;
                             if (material.name === 'face') {
                                 material.color.set(0xff0000); // Bright red
                             }
-                        });
+                        }
                     }
                 });
             }
