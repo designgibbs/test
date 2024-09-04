@@ -136,11 +136,11 @@
 
                 const intersects = raycaster.intersectObject(model, true);
 
-                model.traverse((node) => {
-                    if (node.isMesh && node.name === 'face') {
-                        if (intersects.some(intersect => intersect.object === node)) {
-                            window.location.href = 'http://www.toddgibbs.com/art-direction';
-                        }
+                // Check if any intersected object has the red material
+                intersects.forEach(intersect => {
+                    const object = intersect.object;
+                    if (object.isMesh && object.name === 'face') {
+                        window.location.href = 'http://www.toddgibbs.com/art-direction';
                     }
                 });
             }
