@@ -37,7 +37,13 @@
         const loader = new GLTFLoader();
         loader.load('https://designgibbs.github.io/test/new_cube_1.gltf', function (gltf) {
             model = gltf.scene;
-            model.traverse((node) => {
+
+            // Add the loaded lights from the GLTF file to the scene
+            gltf.scene.traverse((node) => {
+                if (node.isLight) {
+                    scene.add(node);
+                }
+
                 if (node.isMesh) {
                     node.castShadow = true;
                     node.receiveShadow = true;
@@ -47,6 +53,7 @@
                     }
                 }
             });
+
             scene.add(model);
             model.position.set(0, 0, 0);
             model.rotation.y = Math.PI / 4;
