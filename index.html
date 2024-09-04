@@ -110,7 +110,6 @@
                 raycaster.setFromCamera(mouse, camera);
 
                 const intersects = raycaster.intersectObject(model, true);
-                console.log('Intersects:', intersects); // Log intersections
 
                 // Reset all 'face' materials to original color
                 model.traverse((node) => {
