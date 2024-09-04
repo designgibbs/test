@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js GLTF Viewer with Lighting from GLTF File</title>
+    <title>Three.js GLTF Viewer with Lighting from GLTF File and Zoom</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -82,6 +82,16 @@
         document.addEventListener('mouseup', function() {
             isDragging = false;
             document.body.style.cursor = 'grab';
+        });
+
+        // Mouse scroll to zoom
+        document.addEventListener('wheel', function(event) {
+            event.preventDefault();
+            const zoomAmount = 0.1; // Adjust zoom speed here
+            camera.position.z += event.deltaY * zoomAmount;
+
+            // Optional: Clamp the zoom range
+            camera.position.z = Math.max(1, Math.min(100, camera.position.z));
         });
 
         // Animation loop
