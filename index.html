@@ -32,13 +32,11 @@
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.appendChild(renderer.domElement);
 
-        // Add ambient light with reduced intensity
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.5); // Soft white light, intensity reduced by 50%
-        scene.add(ambientLight);
-
-        // Add a directional light with reduced intensity
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // White light, intensity reduced by 50%
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5); // Soft white light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // Directional light
         directionalLight.position.set(1, 1, 1).normalize();
+        scene.add(ambientLight);
         scene.add(directionalLight);
 
         // Load GLTF Model
@@ -46,24 +44,13 @@
         const loader = new GLTFLoader();
         loader.load('https://designgibbs.github.io/test/new_cube_2.gltf', function (gltf) {
             model = gltf.scene;
-
-            // Traverse to set up materials and store original colors
             model.traverse((node) => {
                 if (node.isMesh) {
                     node.castShadow = true;
                     node.receiveShadow = true;
-                    if (node.material) {
-                        if (Array.isArray(node.material)) {
-                            node.material.forEach(mat => {
-                                if (node.name === 'face') {
-                                    mat.userData.originalColor = mat.color.getHex();
-                                }
-                            });
-                        } else {
-                            if (node.name === 'face') {
-                                node.material.userData.originalColor = node.material.color.getHex();
-                            }
-                        }
+                    // Store original material color
+                    if (node.name === 'face') {
+                        node.userData.originalColor = node.material.color.getHex();
                     }
                 }
             });
@@ -106,7 +93,7 @@
             if (model) {
                 const mouse = new THREE.Vector2();
                 const raycaster = new THREE.Raycaster();
-                
+
                 // Normalize mouse coordinates to [-1, 1]
                 mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
                 mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -115,32 +102,17 @@
 
                 const intersects = raycaster.intersectObject(model, true);
 
-                // Log intersected objects
-                console.log('Intersects:', intersects);
-
+                // Reset all 'face' materials to original color
                 model.traverse((node) => {
-                    if (node.isMesh) {
-                        if (Array.isArray(node.material)) {
-                            node.material.forEach(mat => {
-                                if (node.name === 'face') {
-                                    if (intersects.some(intersect => intersect.object === node)) {
-                                        console.log('Hovering over face material');
-                                        mat.color.set(0xff0000); // Bright red
-                                    } else {
-                                        mat.color.setHex(mat.userData.originalColor); // Revert to original color
-                                    }
-                                }
-                            });
-                        } else {
-                            if (node.name === 'face') {
-                                if (intersects.some(intersect => intersect.object === node)) {
-                                    console.log('Hovering over face material');
-                                    node.material.color.set(0xff0000); // Bright red
-                                } else {
-                                    node.material.color.setHex(node.material.userData.originalColor); // Revert to original color
-                                }
-                            }
-                        }
+                    if (node.isMesh && node.name === 'face') {
+                        node.material.color.setHex(node.userData.originalColor);
+                    }
+                });
+
+                // Highlight intersected 'face' material
+                intersects.forEach(intersect => {
+                    if (intersect.object.isMesh && intersect.object.name === 'face') {
+                        intersect.object.material.color.set(0xff0000); // Bright red
                     }
                 });
             }
