@@ -35,7 +35,7 @@
         // Load GLTF Model
         let model;
         const loader = new GLTFLoader();
-        loader.load('https://designgibbs.github.io/test/poundgltfnew.gltf', function (gltf) {
+        loader.load('https://designgibbs.github.io/test/new_cube.gltf', function (gltf) {
             model = gltf.scene;
             model.traverse((node) => {
                 if (node.isMesh) {
