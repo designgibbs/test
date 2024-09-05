@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js GLTF Viewer with Mouse Hover Effect</title>
+    <title>Three.js GLTF Viewer</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
-        cursor: grab;
     </style>
 </head>
 <body>
@@ -15,13 +14,15 @@
         {
             "imports": {
                 "three": "https://unpkg.com/three@0.152.2/build/three.module.js",
-                "GLTFLoader": "https://unpkg.com/three@0.152.2/examples/jsm/loaders/GLTFLoader.js"
+                "GLTFLoader": "https://unpkg.com/three@0.152.2/examples/jsm/loaders/GLTFLoader.js",
+                "OrbitControls": "https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js"
             }
         }
     </script>
     <script type="module">
         import * as THREE from 'three';
         import { GLTFLoader } from 'GLTFLoader';
+        import { OrbitControls } from 'OrbitControls';
 
         // Scene, Camera, Renderer
         const scene = new THREE.Scene();
@@ -33,138 +34,33 @@
         document.body.appendChild(renderer.domElement);
 
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.5); // Soft white light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // Directional light
+        const ambientLight = new THREE.AmbientLight(0x404040, 1); // Soft white light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Directional light
         directionalLight.position.set(1, 1, 1).normalize();
         scene.add(ambientLight);
         scene.add(directionalLight);
 
         // Load GLTF Model
-        let model;
         const loader = new GLTFLoader();
-        loader.load('https://designgibbs.github.io/test/new_cube_2.gltf', function (gltf) {
-            model = gltf.scene;
-            model.traverse((node) => {
-                if (node.isMesh) {
-                    node.castShadow = true;
-                    node.receiveShadow = true;
-
-                    // Set default material color
-                    if (Array.isArray(node.material)) {
-                        node.material.forEach(material => {
-                            if (material.name === 'face') {
-                                material.userData.originalColor = material.color.getHex();
-                            }
-                        });
-                    } else {
-                        const material = node.material;
-                        if (material.name === 'face') {
-                            material.userData.originalColor = material.color.getHex();
-                        }
-                    }
-                }
-            });
-
-            // Add model to scene
+        loader.load('https://designgibbs.github.io/test/leather.gltf', function (gltf) {
+            const model = gltf.scene;
             scene.add(model);
-            model.position.set(0, 0, 0);
-            model.rotation.y = Math.PI / 4;
+
+            // Center the model and adjust camera position
+            const boundingBox = new THREE.Box3().setFromObject(model);
+            const size = boundingBox.getSize(new THREE.Vector3());
+            const center = boundingBox.getCenter(new THREE.Vector3());
+
+            model.position.set(-center.x, -center.y, -center.z);
+
+            camera.position.z = size.length() * 1.5; // Set camera distance based on model size
+
+            // Controls
+            const controls = new OrbitControls(camera, renderer.domElement);
+            controls.target.set(center.x, center.y, center.z);
+            controls.update();
         }, undefined, function (error) {
             console.error('An error occurred while loading the GLTF model:', error);
-        });
-
-        // Camera position
-        camera.position.z = 5;
-
-        // Mouse controls for rotation
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-
-        document.addEventListener('mousedown', function(event) {
-            isDragging = true;
-            document.body.style.cursor = 'grabbing';
-        });
-
-        document.addEventListener('mousemove', function(event) {
-            if (isDragging && model) {
-                const deltaMove = {
-                    x: event.clientX - previousMousePosition.x,
-                    y: event.clientY - previousMousePosition.y
-                };
-
-                model.rotation.y += deltaMove.x * 0.005;
-                model.rotation.x += deltaMove.y * 0.005;
-            }
-
-            previousMousePosition = {
-                x: event.clientX,
-                y: event.clientY
-            };
-
-            // Raycasting for hover effect
-            if (model) {
-                const mouse = new THREE.Vector2();
-                const raycaster = new THREE.Raycaster();
-
-                // Normalize mouse coordinates to [-1, 1]
-                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-                raycaster.setFromCamera(mouse, camera);
-
-                const intersects = raycaster.intersectObject(model, true);
-
-                // Reset all 'face' materials to their original color
-                model.traverse((node) => {
-                    if (node.isMesh) {
-                        if (Array.isArray(node.material)) {
-                            node.material.forEach((material) => {
-                                if (material.name === 'face') {
-                                    material.color.setHex(material.userData.originalColor || 0xffffff); // Default color if undefined
-                                }
-                            });
-                        } else {
-                            const material = node.material;
-                            if (material.name === 'face') {
-                                material.color.setHex(material.userData.originalColor || 0xffffff); // Default color if undefined
-                            }
-                        }
-                    }
-                });
-
-                // Highlight intersected 'face' material
-                intersects.forEach(intersect => {
-                    if (intersect.object.isMesh) {
-                        if (Array.isArray(intersect.object.material)) {
-                            intersect.object.material.forEach((material) => {
-                                if (material.name === 'face') {
-                                    material.color.set(0xff0000); // Bright red on hover
-                                }
-                            });
-                        } else {
-                            const material = intersect.object.material;
-                            if (material.name === 'face') {
-                                material.color.set(0xff0000); // Bright red on hover
-                            }
-                        }
-                    }
-                });
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.cursor = 'grab';
-        });
-
-        // Mouse scroll to zoom
-        document.addEventListener('wheel', function(event) {
-            event.preventDefault();
-            const zoomAmount = 0.01; // Adjust zoom speed here
-            camera.position.z += event.deltaY * zoomAmount;
-
-            // Optional: Clamp the zoom range
-            camera.position.z = Math.max(1, Math.min(100, camera.position.z));
         });
 
         // Animation loop
