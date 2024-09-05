@@ -35,16 +35,21 @@
 
         // Lighting
         const ambientLight = new THREE.AmbientLight(0x404040, 1); // Soft white light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Directional light
-        directionalLight.position.set(1, 1, 1).normalize();
         scene.add(ambientLight);
-        scene.add(directionalLight);
 
         // Load GLTF Model
         const loader = new GLTFLoader();
         loader.load('https://designgibbs.github.io/test/leather.gltf', function (gltf) {
             const model = gltf.scene;
             scene.add(model);
+
+            // Traverse the model to find and double the intensity of any lights
+            model.traverse((node) => {
+                if (node.isLight) {
+                    node.intensity *= 2; // Double the intensity
+                    console.log(`Light ${node.name} intensity doubled to ${node.intensity}`);
+                }
+            });
 
             // Center the model and adjust camera position
             const boundingBox = new THREE.Box3().setFromObject(model);
