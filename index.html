@@ -3,22 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Model Viewer Example</title>
-    <!-- Import the model-viewer script -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <title>Three.js Scene Loader</title>
     <style>
         body { margin: 0; }
-        model-viewer { width: 100vw; height: 100vh; }
+        canvas { display: block; }
     </style>
+    <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
 </head>
 <body>
-    <!-- Model viewer element -->
-    <model-viewer src="https://designgibbs.github.io/test/leather40.gltf"
-                  alt="3D model of leather"
-                  auto-rotate
-                  camera-controls
-                  shadow-intensity="1"
-                  style="border: 1px solid black;">
-    </model-viewer>
+    <script>
+        // Scene, Camera, Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Load the JSON scene
+        const loader = new THREE.ObjectLoader();
+        loader.load('https://designgibbs.github.io/test/project1.json', function (object) {
+            scene.add(object);
+
+            // Center the model and adjust camera position
+            const boundingBox = new THREE.Box3().setFromObject(object);
+            const size = boundingBox.getSize(new THREE.Vector3());
+            const center = boundingBox.getCenter(new THREE.Vector3());
+
+            object.position.set(-center.x, -center.y, -center.z);
+            camera.position.z = size.length() * 1.5;
+
+            // Optional: Adjust camera position based on the model
+            camera.position.set(0, 0, size.length() * 1.5);
+            camera.lookAt(center);
+
+            // Optional: Add controls (if you want to enable interaction)
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.target.set(center.x, center.y, center.z);
+            controls.update();
+        }, undefined, function (error) {
+            console.error('An error occurred while loading the JSON scene:', error);
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+    <script src="https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js"></script>
 </body>
 </html>
