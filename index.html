@@ -48,17 +48,19 @@
                 if (node.isMesh) {
                     node.castShadow = true;
                     node.receiveShadow = true;
-                    // Store original material colors
+                    // Store original material colors and set default color
                     if (Array.isArray(node.material)) {
                         node.material.forEach(material => {
                             if (material.name === 'face') {
                                 material.userData.originalColor = material.color.getHex();
+                                material.color.set(0xff0000); // Default red color
                             }
                         });
                     } else {
                         const material = node.material;
                         if (material.name === 'face') {
                             material.userData.originalColor = material.color.getHex();
+                            material.color.set(0xff0000); // Default red color
                         }
                     }
                 }
@@ -117,13 +119,13 @@
                         if (Array.isArray(node.material)) {
                             node.material.forEach((material) => {
                                 if (material.name === 'face') {
-                                    material.color.setHex(material.userData.originalColor || 0xffffff); // Default to white if undefined
+                                    material.color.setHex(material.userData.originalColor || 0xff0000); // Default red if undefined
                                 }
                             });
                         } else {
                             const material = node.material;
                             if (material.name === 'face') {
-                                material.color.setHex(material.userData.originalColor || 0xffffff); // Default to white if undefined
+                                material.color.setHex(material.userData.originalColor || 0xff0000); // Default red if undefined
                             }
                         }
                     }
@@ -135,13 +137,13 @@
                         if (Array.isArray(intersect.object.material)) {
                             intersect.object.material.forEach((material) => {
                                 if (material.name === 'face') {
-                                    material.color.set(0xff0000); // Bright red
+                                    material.color.set(0xff6666); // Bright red on hover
                                 }
                             });
                         } else {
                             const material = intersect.object.material;
                             if (material.name === 'face') {
-                                material.color.set(0xff0000); // Bright red
+                                material.color.set(0xff6666); // Bright red on hover
                             }
                         }
                     }
