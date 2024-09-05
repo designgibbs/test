@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js FBX Viewer with FBX Lighting</title>
+    <title>Three.js GLTF Viewer with Model Lights</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -14,14 +14,14 @@
         {
             "imports": {
                 "three": "https://unpkg.com/three@0.152.2/build/three.module.js",
-                "FBXLoader": "https://unpkg.com/three@0.152.2/examples/jsm/loaders/FBXLoader.js",
+                "GLTFLoader": "https://unpkg.com/three@0.152.2/examples/jsm/loaders/GLTFLoader.js",
                 "OrbitControls": "https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js"
             }
         }
     </script>
     <script type="module">
         import * as THREE from 'three';
-        import { FBXLoader } from 'FBXLoader';
+        import { GLTFLoader } from 'GLTFLoader';
         import { OrbitControls } from 'OrbitControls';
 
         // Scene, Camera, Renderer
@@ -33,16 +33,16 @@
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.appendChild(renderer.domElement);
 
-        // Load FBX Model
-        const loader = new FBXLoader();
-        loader.load('https://designgibbs.github.io/test/trial_box2.fbx', function (fbx) {
-            const model = fbx;
+        // Load GLTF Model
+        const loader = new GLTFLoader();
+        loader.load('https://designgibbs.github.io/test/glb_with_lights.gltf', function (gltf) {
+            const model = gltf.scene;
             scene.add(model);
 
             // Traverse the model to find and add lights
             model.traverse((node) => {
                 if (node.isLight) {
-                    // Adjust light intensity if needed
+                    // Modify the light's intensity if needed (e.g., double it)
                     node.intensity *= 2;
                     scene.add(node);
                 }
@@ -62,7 +62,7 @@
             controls.target.set(center.x, center.y, center.z);
             controls.update();
         }, undefined, function (error) {
-            console.error('An error occurred while loading the FBX model:', error);
+            console.error('An error occurred while loading the GLTF model:', error);
         });
 
         // Animation loop
