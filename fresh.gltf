@@ -2876,429 +2876,429 @@
 	],
 	"images":[
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"floor_normal",
-			"uri":"floor_normal.jpg"
+			"uri":"floor_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"floor_diffuse_edge_fixed",
-			"uri":"floor_diffuse_edge_fixed.jpg"
+			"uri":"floor_diffuse_edge_fixed.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"ceiling_normal",
-			"uri":"ceiling_normal.jpg"
+			"uri":"ceiling_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"ceiling_diffuse",
-			"uri":"ceiling_diffuse.jpg"
+			"uri":"ceiling_diffuse.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"4K-concrete_white-normal",
-			"uri":"4K-concrete_white-normal.jpg"
+			"uri":"4K-concrete_white-normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"stairs_5",
-			"uri":"stairs_5.jpg"
+			"uri":"stairs_5.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"stairs_8",
-			"uri":"stairs_8.jpg"
+			"uri":"stairs_8.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"wall_normal2",
-			"uri":"wall_normal2.jpg"
+			"uri":"wall_normal2.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"wall",
-			"uri":"wall.jpg"
+			"uri":"wall.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"sliver_wall_normal",
-			"uri":"sliver_wall_normal.jpg"
+			"uri":"sliver_wall_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"sliver_wall_diffuse",
-			"uri":"sliver_wall_diffuse.jpg"
+			"uri":"sliver_wall_diffuse.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"carpet",
-			"uri":"carpet.jpg"
+			"uri":"carpet.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"rods",
-			"uri":"rods.jpg"
+			"uri":"rods.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"roof_sliver_normal",
-			"uri":"roof_sliver_normal.jpg"
+			"uri":"roof_sliver_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"roof_sliver",
-			"uri":"roof_sliver.jpg"
+			"uri":"roof_sliver.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"back_wall_normal",
-			"uri":"back_wall_normal.jpg"
+			"uri":"back_wall_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"back_wall_2",
-			"uri":"back_wall_2.jpg"
+			"uri":"back_wall_2.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"wall_withwindows_normal",
-			"uri":"wall_withwindows_normal.jpg"
+			"uri":"wall_withwindows_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"wall_withwindows",
-			"uri":"wall_withwindows.jpg"
+			"uri":"wall_withwindows.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"pillow_norm",
-			"uri":"pillow_norm.jpg"
+			"uri":"pillow_norm.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"pillow_diff",
-			"uri":"pillow_diff.jpg"
+			"uri":"pillow_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"pillow_roguh",
-			"uri":"pillow_roguh.jpg"
+			"uri":"pillow_roguh.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_normal",
-			"uri":"left_chair_normal.jpg"
+			"uri":"left_chair_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_diff",
-			"uri":"left_chair_diff.jpg"
+			"uri":"left_chair_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_rough",
-			"uri":"left_chair_rough.jpg"
+			"uri":"left_chair_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_seat_normall",
-			"uri":"left_chair_seat_normall.jpg"
+			"uri":"left_chair_seat_normall.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_seat_diffl",
-			"uri":"left_chair_seat_diffl.jpg"
+			"uri":"left_chair_seat_diffl.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_seat_rough",
-			"uri":"left_chair_seat_rough.jpg"
+			"uri":"left_chair_seat_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_lower_normal",
-			"uri":"left_chair_lower_normal.jpg"
+			"uri":"left_chair_lower_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_lower_diff",
-			"uri":"left_chair_lower_diff.jpg"
+			"uri":"left_chair_lower_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"left_chair_lower_rough",
-			"uri":"left_chair_lower_rough.jpg"
+			"uri":"left_chair_lower_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"chair_legs",
-			"uri":"chair_legs.jpg"
+			"uri":"chair_legs.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"table_vase_rough",
-			"uri":"table_vase_rough.jpg"
+			"uri":"table_vase_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_seat_normal",
-			"uri":"couch_seat_normal.jpg"
+			"uri":"couch_seat_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_seat_diff",
-			"uri":"couch_seat_diff.jpg"
+			"uri":"couch_seat_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_seat_rough",
-			"uri":"couch_seat_rough.jpg"
+			"uri":"couch_seat_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_lower_normal",
-			"uri":"couch_lower_normal.jpg"
+			"uri":"couch_lower_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_lower_diff",
-			"uri":"couch_lower_diff.jpg"
+			"uri":"couch_lower_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_lower_rough",
-			"uri":"couch_lower_rough.jpg"
+			"uri":"couch_lower_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_back_normal",
-			"uri":"couch_back_normal.jpg"
+			"uri":"couch_back_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_back_diff",
-			"uri":"couch_back_diff.jpg"
+			"uri":"couch_back_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_back_rough",
-			"uri":"couch_back_rough.jpg"
+			"uri":"couch_back_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_cushion_l_normal",
-			"uri":"couch_cushion_l_normal.jpg"
+			"uri":"couch_cushion_l_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_cushion_l_diff",
-			"uri":"couch_cushion_l_diff.jpg"
+			"uri":"couch_cushion_l_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_cushion_l_rough",
-			"uri":"couch_cushion_l_rough.jpg"
+			"uri":"couch_cushion_l_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_cushion_R_normal",
-			"uri":"couch_cushion_R_normal.jpg"
+			"uri":"couch_cushion_R_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_cushion_R_Diff",
-			"uri":"couch_cushion_R_Diff.jpg"
+			"uri":"couch_cushion_R_Diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_cushion_R_rough",
-			"uri":"couch_cushion_R_rough.jpg"
+			"uri":"couch_cushion_R_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"couch_legs",
-			"uri":"couch_legs.jpg"
+			"uri":"couch_legs.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"wall_normal_presetress",
-			"uri":"wall_normal_presetress.jpg"
+			"uri":"wall_normal_presetress.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"wall_diffuse_combined",
-			"uri":"wall_diffuse_combined.jpg"
+			"uri":"wall_diffuse_combined.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"new_wall_rough",
-			"uri":"new_wall_rough.jpg"
+			"uri":"new_wall_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"other_wall_outside_normal",
-			"uri":"other_wall_outside_normal.jpg"
+			"uri":"other_wall_outside_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"other_wall_outside",
-			"uri":"other_wall_outside.jpg"
+			"uri":"other_wall_outside.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"other_wall_outside_rough",
-			"uri":"other_wall_outside_rough.jpg"
+			"uri":"other_wall_outside_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"back_outside_wall_normal",
-			"uri":"back_outside_wall_normal.jpg"
+			"uri":"back_outside_wall_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"outside_wall_back_diffuse",
-			"uri":"outside_wall_back_diffuse.jpg"
+			"uri":"outside_wall_back_diffuse.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"patio_normal",
-			"uri":"patio_normal.jpg"
+			"uri":"patio_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"patio",
-			"uri":"patio.jpg"
+			"uri":"patio.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"outside_wall_right_normal",
-			"uri":"outside_wall_right_normal.jpg"
+			"uri":"outside_wall_right_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"outside_wall_right_diffuse",
-			"uri":"outside_wall_right_diffuse.jpg"
+			"uri":"outside_wall_right_diffuse.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"tree_diffuse",
-			"uri":"tree_diffuse.jpg"
+			"uri":"tree_diffuse.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"rocks",
-			"uri":"rocks.jpg"
+			"uri":"rocks.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"leaves_diff",
-			"uri":"leaves_diff.jpg"
+			"uri":"leaves_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"rocks_under_tree",
-			"uri":"rocks_under_tree.jpg"
+			"uri":"rocks_under_tree.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"wall_above_right",
-			"uri":"wall_above_right.jpg"
+			"uri":"wall_above_right.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"wall_above_left",
-			"uri":"wall_above_left.jpg"
+			"uri":"wall_above_left.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"pictureon_wall",
-			"uri":"pictureon_wall.jpg"
+			"uri":"pictureon_wall.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"bottomWall",
-			"uri":"bottomWall.jpg"
+			"uri":"bottomWall.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"dresser_new2",
-			"uri":"dresser_new2.jpg"
+			"uri":"dresser_new2.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_1_normal",
-			"uri":"vase_1_normal.jpg"
+			"uri":"vase_1_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_1",
-			"uri":"vase_1.jpg"
+			"uri":"vase_1.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_1_rough",
-			"uri":"vase_1_rough.jpg"
+			"uri":"vase_1_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_2_normal",
-			"uri":"vase_2_normal.jpg"
+			"uri":"vase_2_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_2_diff",
-			"uri":"vase_2_diff.jpg"
+			"uri":"vase_2_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_2_rough",
-			"uri":"vase_2_rough.jpg"
+			"uri":"vase_2_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_3_normal",
-			"uri":"vase_3_normal.jpg"
+			"uri":"vase_3_normal.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_3_diff",
-			"uri":"vase_3_diff.jpg"
+			"uri":"vase_3_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"vase_3_rough",
-			"uri":"vase_3_rough.jpg"
+			"uri":"vase_3_rough.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"table_new_normal_2",
-			"uri":"table_new_normal_2.jpg"
+			"uri":"table_new_normal_2.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"table_new_diffuse_2",
-			"uri":"table_new_diffuse_2.jpg"
+			"uri":"table_new_diffuse_2.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"table_new_rough_2",
-			"uri":"table_new_rough_2.jpg"
+			"uri":"table_new_rough_2.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"tablevase_norm",
-			"uri":"tablevase_norm.jpg"
+			"uri":"tablevase_norm.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"tablevase_diff",
-			"uri":"tablevase_diff.jpg"
+			"uri":"tablevase_diff.ktx2"
 		},
 		{
-			"mimeType":"image/jpeg",
+			"mimeType":"image/ktx2",
 			"name":"tablevase_rough",
-			"uri":"tablevase_rough.jpg"
+			"uri":"tablevase_rough.ktx2"
 		}
 	],
 	"accessors":[
