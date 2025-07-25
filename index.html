@@ -1,63 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js Scene Loader</title>
-    <style>
-        body { margin: 0; }
-        canvas { display: block; }
-    </style>
-    <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Kiri:Moto Estimator</title>
 </head>
 <body>
-    <script>
-        // Scene, Camera, Renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+  <h2>Drop STL to estimate print time</h2>
+  <input type="file" id="file" accept=".stl">
+  <pre id="output">Loading Kiri engine...</pre>
 
-        // Load the JSON scene
-        const loader = new THREE.ObjectLoader();
-        loader.load('https://designgibbs.github.io/test/project1.json', function (object) {
-            scene.add(object);
+  <script src="https://grid.space/code/engine.js"></script>
+  <script>
+    const fileInput = document.getElementById('file');
+    const output = document.getElementById('output');
 
-            // Center the model and adjust camera position
-            const boundingBox = new THREE.Box3().setFromObject(object);
-            const size = boundingBox.getSize(new THREE.Vector3());
-            const center = boundingBox.getCenter(new THREE.Vector3());
+    // Delay to allow engine.js to load and self-init
+    setTimeout(() => {
+      if (typeof kiri === "undefined" || !kiri.driver?.FDM) {
+        output.textContent = "Kiri engine not ready.";
+        return;
+      }
 
-            object.position.set(-center.x, -center.y, -center.z);
-            camera.position.z = size.length() * 1.5;
+      // Force FDM mode to skip CAM/manifold unless needed
+      kiri.set.mode("FDM");
 
-            // Optional: Adjust camera position based on the model
-            camera.position.set(0, 0, size.length() * 1.5);
-            camera.lookAt(center);
+      output.textContent = 'Engine ready. Drop an STL file...';
 
-            // Optional: Add controls (if you want to enable interaction)
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.target.set(center.x, center.y, center.z);
-            controls.update();
-        }, undefined, function (error) {
-            console.error('An error occurred while loading the JSON scene:', error);
+      fileInput.addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const buffer = await file.arrayBuffer();
+
+        kiri.codec.stl.decode(buffer, widget => {
+          if (!widget) {
+            output.textContent = "Failed to parse STL.";
+            return;
+          }
+
+          const settings = {
+            device: {
+              bedWidth: 256,
+              bedDepth: 256,
+              nozzle: 0.4
+            },
+            process: {
+              layerHeight: 0.2,
+              sliceShells: 2,
+              sliceFillSparse: 0.15,
+              printSpeed: 60,
+              firstLayerSpeed: 30
+            }
+          };
+
+          const FDM = kiri.driver.FDM;
+
+          FDM.slice([widget], settings, () => {
+            FDM.prepare([widget], settings, () => {
+              const timeMin = (widget.output.time / 60).toFixed(1);
+              const lengthM = (widget.output.filament / 1000).toFixed(2);
+              const weightG = widget.output.weight.toFixed(2);
+
+              output.textContent =
+                `🕒 Print Time: ${timeMin} minutes\n` +
+                `📏 Filament: ${lengthM} meters\n` +
+                `⚖️ Weight: ${weightG} grams`;
+            });
+          });
         });
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
-    <script src="https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js"></script>
+      });
+    }, 500); // Wait 500ms to ensure kiri is available
+  </script>
 </body>
 </html>
